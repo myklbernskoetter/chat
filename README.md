@@ -6,32 +6,30 @@ Simple Chat Window
 ------
 
 Goals:
-<ul>
-    <li>Stretch your mind</li>
-    <li>Write Quality JS</li>
-    <li>Explore Various key codes</li>
-    <li>Explore JS Date Functions</li>
-    <li>Explore JS String maniuplation</li>
-</ul>
+
+* Stretch your mind
+* Write Quality JS
+* Explore Various key codes
+* Explore JS Date Functions
+* Explore JS String maniuplation
 
 
 Requirements:
-<ul>
-    <li>Code Must meet 40Digits Standards</li>
-    <li>JS must use strict standards</li>
-    <li>jQuery selectors/event bindings</li>
-    <li>Code must be treated as a self-contained module</li>
-    <li>The text input must 'dissapear' upon pushing the 'enter' button</li>
-    <li>Format of output is as follows: `<p>[{HH}:{MM}:{SS}] {NAME}: {TEXT}</p>` (markup in this format may be added as necessary for the bonuses)</li>
-</ul>
+
+* Code Must meet 40Digits Standards
+* JS must use strict standards
+* jQuery selectors/event bindings
+* Code must be treated as a self-contained module
+* The text input must 'dissapear' upon pushing the 'enter' button
+* Format of output is as follows: `<p>[{HH}:{MM}:{SS}] {NAME}: {TEXT}</p>` (markup in this format may be added as necessary for the bonuses)
+
 
 Bonus:
-<ul>
-    <li>Colored Time/Name to differentiate between two different people</li>
-    <li>Scroll is always at bottom of output container</li>
-    <li>Emoticons</li>
-    <li>Chat History</li>
-    <li>+200,000 points/graduation from course if AJAX/PHP is used to make a real chat program, where two or more can have a live chat.</li>
-</ul>
+
+* Colored Time/Name to differentiate between two different people
+* Scroll is always at bottom of output container
+* Emoticons
+* Chat History
+* +200,000 points/graduation from course if AJAX/PHP is used to make a real chat program, where two or more can have a live chat.
 
 **Note:** HTML/CSS will be provided.
