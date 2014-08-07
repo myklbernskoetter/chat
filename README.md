@@ -6,20 +6,20 @@ Simple Chat Window
 ------
 
 Goals:
--   Stretch your mind
--   Write Quality JS
--   Explore Various key codes
--   Explore JS Date Functions
--   Explore JS String maniuplation
+  -   Stretch your mind
+  -   Write Quality JS
+  -   Explore Various key codes
+  -   Explore JS Date Functions
+  -   Explore JS String maniuplation
 
 
 Requirements:
--   Code Must meet 40Digits Standards
--   JS must use strict standards
--   jQuery selectors/event bindings
--   Code must be treated as a self-contained module
--   The text input must 'dissapear' upon pushing the 'enter' button
--   Format of output is as follows: `<p>[{HH}:{MM}:{SS}] {NAME}: {TEXT}</p>` (markup in this format may be added as necessary for the bonuses)
+  -   Code Must meet 40Digits Standards
+  -   JS must use strict standards
+  -   jQuery selectors/event bindings
+  -   Code must be treated as a self-contained module
+  -   The text input must 'dissapear' upon pushing the 'enter' button
+  -   Format of output is as follows: `<p>[{HH}:{MM}:{SS}] {NAME}: {TEXT}</p>` (markup in this format may be added as necessary for the bonuses)
 
 Bonus:
 -   Colored Time/Name to differentiate between two different people
