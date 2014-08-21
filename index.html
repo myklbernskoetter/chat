@@ -6,18 +6,94 @@
     <body>
 
         <div id="window" style="width: 100%; max-width: 100%;">
-            <div id="output" style="width: 100%; max-width: 100%; height: 300px; overflow: scroll; border: 1px solid #000">
-
-            </div>
-
-            <input type="text" id="name" style="width: 200px; display:block;" placeholder="name" />
-            <input type="text" id="chat-input" style="width: inherit;" />
+            <div id="output" style="width: 100%; max-width: 100%; height: 300px; overflow: scroll; border: 1px solid #000"></div>
+            <input type="text" id="name" style="width: 200px; display:block;" placeholder="name" tabindex="1" />
+            <input type="text" id="chat-input" style="width: inherit;" tabindex="2" />
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript">
 
-            // Write your code here
+            (function ($) {
+
+                'use strict';
+
+                var $output = $('div#output'),
+                    $name   = $('input#name'),
+                    $input  = $('input#chat-input'),
+
+                    // get the time and date
+                    dateTime = function () {
+
+                        var date = new Date(),
+                            hh   = date.getHours(),
+                            mm   = date.getMinutes(),
+                            ss   = date.getSeconds();
+
+                        // format times
+                        if ( hh > 12 ) {
+                            hh = hh - 12;
+                        } else if ( hh < 10 ) {
+                            hh = '0' + hh;
+                        }
+
+                        if ( mm < 10 ) {
+                            mm = '0' + mm;
+                        }
+
+                        if ( ss < 10 ) {
+                            ss = '0' + ss;
+                        }
+
+                        return hh + ':' + mm + ':' + ss;
+
+                    },
+
+                    // sending the messages
+                    submitMessage = function () {
+
+                        var time     = dateTime(),
+                            name     = $name.val(),
+                            message  = $input.val();
+
+                        // write the output
+                        $output.append( '<p data-name="' + name + '">[' + time + '] ' + name + ': ' + message + '</p>' );
+
+                        // scroll the container
+                        $output.scrollTop( $output.height() );
+
+                        // delete the text
+                        $input.val('');
+
+                    },
+
+                    // detect enter key on input field
+                    chat = function () {
+
+                        $input.on( 'keydown', function (e) {
+
+                            // this is the enter key
+                            if ( e.keyCode === 13 ) {
+
+                                // if there is a message
+                                if ( $input.val().length > 0 ) {
+                                    submitMessage();
+                                }
+
+                            }
+
+                        });
+
+                    };
+
+                // run 'em
+                $(function () {
+
+                    chat();
+
+                });
+
+            }(window.jQuery || window.$));
 
         </script>
     </body>
