@@ -17,8 +17,7 @@
 
             <input type="text" id="name" style="width: 200px; display:block;" placeholder="name" />
             <input type="text" id="chat-input" style="width: inherit;" />
-            <button class="save">Save</button>
-            <button class="load">Load</button>
+
             <button class="clear">Clear</button>
         </div>
 
@@ -56,7 +55,7 @@
             if( $name != '' && $message != '' ) {
               $output = '<p class="output"> <span class="name ' + $lcName +'">[' + timestamp + '] ' +
                         $name + ':</span> ' + $message + '</p>';
-              
+
               // We need to keep the chat area scrolled to the bottom
               $outputContainer.append($output);
               height = $outputContainer[0].scrollHeight;
@@ -75,11 +74,6 @@
           //Clear button to erase current chat
           $('.clear').on('click tap touch', function (e) {
             $('.output').remove();
-          });
-
-          //Clear button to erase current chat
-          $('.save').on('click tap touch', function (e) {
-
           });
 
 
