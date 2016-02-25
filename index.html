@@ -2,6 +2,11 @@
 <html>
     <head>
         <title>Simple Chatroom</title>
+        <style media="screen">
+          button {
+            margin-top: 25px;
+          }
+        </style>
     </head>
     <body>
 
@@ -12,12 +17,72 @@
 
             <input type="text" id="name" style="width: 200px; display:block;" placeholder="name" />
             <input type="text" id="chat-input" style="width: inherit;" />
+            <button class="save">Save</button>
+            <button class="load">Load</button>
+            <button class="clear">Clear</button>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script type="text/javascript">
+          "use strict";
 
-            // Write your code here
+          // We Only need to run the function if we're focused
+          // on the chat-input and push enter to submit it.
+          if( $("#chat-input").on(':focus')) {
+            $(document).keypress(function(e) {
+              if( e.which == 13 ) {
+                submitMessage();
+              }
+            });
+          }
+
+          // Once our function is triggered- we set our variables and
+          // generate output as long as neigther name or message are empty.
+          function submitMessage() {
+            var $name = $('#name').val(),
+                $lcName = $name.toLowerCase(name),
+                $message = $('#chat-input').val(),
+                $output = '',
+
+                $outputContainer = $('#output'),
+                height = '',
+
+                date = new Date(),
+                seconds = date.getSeconds(),
+                minutes = date.getMinutes(),
+                hour = date.getHours(),
+                timestamp = hour + ':' + minutes + ':' + seconds;
+
+            if( $name != '' && $message != '' ) {
+              $output = '<p class="output"> <span class="name ' + $lcName +'">[' + timestamp + '] ' +
+                        $name + ':</span> ' + $message + '</p>';
+              
+              // We need to keep the chat area scrolled to the bottom
+              $outputContainer.append($output);
+              height = $outputContainer[0].scrollHeight;
+              $outputContainer.scrollTop(height);
+
+              // Set some color overrides for certain users
+              $('.name').css("color", "blue");
+              $('.mykl').css("color", "orange");
+              $('.alli').css("color", "#54b4c4");
+
+              // 'Zero' out the chat input element.
+              $('#chat-input').val('');
+            }
+          }
+
+          //Clear button to erase current chat
+          $('.clear').on('click tap touch', function (e) {
+            $('.output').remove();
+          });
+
+          //Clear button to erase current chat
+          $('.save').on('click tap touch', function (e) {
+
+          });
+
+
 
         </script>
     </body>
