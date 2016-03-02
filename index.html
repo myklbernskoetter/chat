@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chatroom</title>
+        <link rel="stylesheet" type="text/css" href="assets/styles.css" />
+
+
+    </head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+    </script>
+    <body>
+        <div id="window" style="width: 100%; max-width: 100%;">
+            <div id="output" style="width: 100%; max-width: 100%; height: 300px; overflow: scroll; border: 1px solid #000">
+
+            </div>
+
+            <input type="text" id="name" style="width: 200px; display:block;" placeholder="name" />
+            <div contentEditable="true" data-text="Enter text here"s rows="1" type="text" id="chat-input" style="width: inherit;"></div>
+
+            <button class="clear">Clear</button>
+
+            <div class="emojiContainer">
+                <img class="emoji" src="./assets/Images/frown.png" alt="" />
+                <img class="emoji" src="./assets/Images/smile.png" alt="" />
+            </div>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <!-- Run Main JS -->
+        <script src="assets/js/main.js"></script>
+        <script type="text/javascript">
+        "use strict";
+
+        (function(){
+          // We Only need to run the function if we're focused
+          // on the chat-input and push enter to submit it.
+          if( $("#chat-input").on(':focus')) {
+            $(document).keypress(function(e) {
+              if( e.which == 13 ) {
+                e.preventDefault();
+                submitMessage();
+              }
+            });
+          }
+
+          //  Currently, clicking an emoji in the emoji container will  add emojis to the input line as their writing their messages
+          $(".emoji").on('click tap touch', function(e) {
+            var name = $('#name').val(),
+            lcName = name.toLowerCase(name),
+            time = timeStamp(),
+            emoji = $(this).attr('src');
+            if( name != '') {
+              $('#chat-input').append('<img class="appendedEmoji" src="' + emoji + '"/>');
+              setColor();
+            }
+          });
+
+
+          function submitMessage() {
+          // Input and Output
+            var name = $('#name').val(),
+            lcName = name.toLowerCase(name),
+            message = $('#chat-input').html(),
+            smile =':)',
+            frown = ':(',
+            parsedMessage = message.replace(smile, '<img class="appendedEmoji" src="./Images/smile.png"/>').replace(frown, '<img class="appendedEmoji" src="./Images/frown.png"/>'),
+            output = '',
+            $outputContainer = $('#output'),
+            height = '',
+            time = timeStamp();
+
+            if( name != '' && message != '' ) {
+              output = '<p class="output"> <span class="name ' + lcName +'">[' + time + '] ' +
+              name + ':</span> ' + parsedMessage + '</p>';
+
+              var socket = io();
+              socket.emit('chat message', output);
+
+              socket.on('chat message', function(msg){
+                $outputContainer.append(msg);
+                height = $outputContainer[0].scrollHeight;
+                $outputContainer.scrollTop(height);
+                setColor();
+                $('#chat-input').empty();
+              });
+
+            }
+          }
+
+
+          function timeStamp() {
+            var date = new Date(),
+            seconds = date.getSeconds(),
+            minutes = date.getMinutes(),
+            hour = date.getHours(),
+            time = hour + ':' + minutes + ':' + seconds;
+
+            return time;
+          }
+
+          function setColor() {
+            // Set some color overrides for certain users
+            $('.name').css("color", "blue");
+            $('.mykl').css("color", "orange");
+          }
+
+          //Clear button to erase current chat
+          //  $('.clear').on('click tap touch', function (e) {
+          //    $('.output').remove();
+          //  });
+
+          }())
+
+        </script>
+    </body>
+</html>
