@@ -11,7 +11,7 @@ Goals:
 * Write Quality JS
 * Explore Various key codes
 * Explore JS Date Functions
-* Explore JS String maniuplation
+* Explore JS String manipulation
 
 
 Requirements:
@@ -20,7 +20,7 @@ Requirements:
 * JS must use strict standards
 * jQuery selectors/event bindings
 * Code must be treated as a self-contained module
-* The text input must 'dissapear' upon pushing the 'enter' button
+* The text input must 'disappear' upon pushing the 'enter' button
 * Format of output is as follows: `<p>[{HH}:{MM}:{SS}] {NAME}: {TEXT}</p>` (markup in this format may be added as necessary for the bonuses)
 
 

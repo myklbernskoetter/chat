@@ -1,0 +1,60 @@
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  background: black;
+}
+
+button {
+  margin-top: 25px;
+}
+
+div {
+  font-family: 'arial', sans-serif;
+}
+
+img {
+width: 25px;
+}
+
+
+#status {
+  background: white;
+}
+.emojiContainer {
+  background: white;
+}
+
+.emoji {
+  cursor: pointer;
+}
+
+.appendedEmoji {
+  vertical-align: middle;
+}
+
+
+.name  {
+  color: blue;
+}
+
+.mykl {
+  color: orange;
+}
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+}
+
+#chat-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: white;
+  overflow: hidden;
+}
+
+#chat-input::before {
+  color: grey;
+}
+#output {
+  background: lightgrey;
+}
