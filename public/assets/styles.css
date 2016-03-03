@@ -16,10 +16,35 @@ img {
 width: 25px;
 }
 
-
-#status {
-  background: white;
+.connect {
+  display: none;
 }
+
+.connection {
+  width: 100px;
+}
+
+.on,
+.off {
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.on {
+  background: #B6FF00;
+  box-shadow: 0 0 3px 3px #B6FF00;
+  /* in order: x offset, y offset, blur size, spread size, color */
+  /* blur size and spread size are optional (they default to 0) */
+}
+
+.off {
+  background: red;
+  box-shadow: 0 0 3px 3px red;
+}
+
 .emojiContainer {
   background: white;
 }
@@ -32,7 +57,9 @@ width: 25px;
   vertical-align: middle;
 }
 
-
+.not-sent {
+  color: grey;
+}
 .name  {
   color: blue;
 }
@@ -57,4 +84,8 @@ width: 25px;
 }
 #output {
   background: lightgrey;
+}
+
+#status {
+  background: white;
 }

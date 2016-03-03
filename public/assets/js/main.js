@@ -2,6 +2,29 @@
 
 (function(){
 
+  var socket = io();
+console.log(socket);
+  //Putting in some indicators that the chat is either active or inactive.
+  $(".disconnect").on('click tap touch', function() {
+    socket.close();
+    $(this).css('display', 'none');
+    $('.connect').css('display', 'inline');
+    $('.light').toggleClass("off");
+    $('#output').css('outline', '3px solid red');
+    console.log(socket);
+
+  });
+
+  $(".connect").on('click tap touch', function() {
+
+    socket.connect();
+    $(this).css('display', 'none');
+    $('.disconnect').css('display', 'inline');
+    $('.light').toggleClass("off");
+    $('#output').css('outline', '3px solid black');
+  });
+
+
   // We Only need to run the function if we're focused
   // on the chat-input and push enter to submit it.
   if( $("#chat-input").on(':focus')) {
@@ -25,15 +48,9 @@
     }
   });
 
-  socket.on('chat message', function(msg){
-    var $outputContainer = $('#output'),
-    height = '';
-    $outputContainer.append(msg);
-    height = $outputContainer[0].scrollHeight;
-    $outputContainer.scrollTop(height);
-    setColor();
-    $('#chat-input').empty();
-  });
+    socket.on('chat message', function(msg){
+      output(msg);
+    });
 
   function submitMessage() {
   // Input and Output
@@ -43,15 +60,35 @@
     smile =':)',
     frown = ':(',
     parsedMessage = message.replace(smile, '<img class="appendedEmoji" src="./Images/smile.png"/>').replace(frown, '<img class="appendedEmoji" src="./Images/frown.png"/>'),
-    output = '',
+    msg = '',
     time = timeStamp();
 
-
     if( name != '' && message != '' ) {
-      output = '<p class="output"> <span class="name ' + lcName +'">[' + time + '] ' +
-      name + ':</span> ' + parsedMessage + '</p>';
-      socket.emit('chat message', output);
+
+
+      if(socket.connected === true) {
+        msg = '<p class="output"> <span class="name ' + lcName +'">[' + time + '] ' +
+        name + ':</span> ' + parsedMessage + '</p>';
+
+        socket.emit('chat message', msg);
+
+      } else {
+        msg = '<p class="output not-sent"> <span class="not-sent">[' + time + '] ' +
+        name + ':</span> ' + parsedMessage + '</p>';
+
+        output(msg);
+      }
     }
+  }
+
+  function output(msg) {
+    var $outputContainer = $('#output'),
+    height = '';
+    $outputContainer.append(msg);
+    height = $outputContainer[0].scrollHeight;
+    $outputContainer.scrollTop(height);
+    setColor();
+    $('#chat-input').empty();
   }
 
   function timeStamp() {
@@ -63,7 +100,6 @@
 
     return time;
   }
-
 
   function setColor() {
     // Set some color overrides for certain users
