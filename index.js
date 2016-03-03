@@ -1,6 +1,13 @@
+var express = require('express');
+var http = require('http');
+var path = require('path');
+// var db = require('./lib/db');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
   res.sendfile('index.html');
