@@ -3,27 +3,36 @@
 (function(){
 
   var socket = io();
-console.log(socket);
+  var name = prompt('What is your name?');
+
+
+  $('#name').val(name);
+
   //Putting in some indicators that the chat is either active or inactive.
   $(".disconnect").on('click tap touch', function() {
     socket.close();
     $(this).css('display', 'none');
     $('.connect').css('display', 'inline');
     $('.light').toggleClass("off");
-    $('#output').css('outline', '3px solid red');
+    $('#output').css('outline', '2px solid red');
     console.log(socket);
 
   });
 
   $(".connect").on('click tap touch', function() {
-
     socket.connect();
     $(this).css('display', 'none');
     $('.disconnect').css('display', 'inline');
     $('.light').toggleClass("off");
-    $('#output').css('outline', '3px solid black');
+    $('#output').css('outline', 'none');
   });
 
+  // The User gets to choos their own color and it shows up in several places- the header, the chat banner section, and their messages.
+  $('#color').bind('input', function() {
+    var color = $(this).val(); // get the current value of the input field.
+    // $('h1').css('color', color);
+    $('header').css('background', color);
+  });
 
   // We Only need to run the function if we're focused
   // on the chat-input and push enter to submit it.
@@ -36,50 +45,40 @@ console.log(socket);
     });
   }
 
-  //  Currently, clicking an emoji in the emoji container will  add emojis to the input line as their writing their messages
+  //  Currently, clicking an emoji in the emoji container will  add emojis to the input line as they're writing their messages
   $(".emoji").on('click tap touch', function(e) {
-    var name = $('#name').val(),
-    lcName = name.toLowerCase(name),
-    time = timeStamp(),
-    emoji = $(this).attr('src');
-    if( name != '') {
-      $('#chat-input').append('<img class="appendedEmoji" src="' + emoji + '"/>');
-      setColor();
-    }
+    var emoji = $(this).attr('src');
+    $('#chat-input').append('<img class="appendedEmoji" src="' + emoji + '"/>');
   });
 
-    socket.on('chat message', function(msg){
-      output(msg);
-    });
-
+// Output 1 of 2 ways.  If connnected- run the submitMessage function which then emits
   function submitMessage() {
-  // Input and Output
     var name = $('#name').val(),
-    lcName = name.toLowerCase(name),
     message = $('#chat-input').html(),
     smile =':)',
     frown = ':(',
-    parsedMessage = message.replace(smile, '<img class="appendedEmoji" src="./Images/smile.png"/>').replace(frown, '<img class="appendedEmoji" src="./Images/frown.png"/>'),
+    parsedMessage = message.replace(smile, '<img class="appendedEmoji" src="./assets/Images/smile.png"/>').replace(frown, '<img class="appendedEmoji" src="./assets/Images/frown.png"/>'),
     msg = '',
+    color = $('#color').val(),
     time = timeStamp();
-
     if( name != '' && message != '' ) {
-
-
       if(socket.connected === true) {
-        msg = '<p class="output"> <span class="name ' + lcName +'">[' + time + '] ' +
-        name + ':</span> ' + parsedMessage + '</p>';
+        msg = '<div class="speech"><p class="output" style="border: 2px solid ' + color + '" > <span class="name ' + name +'" >[' + time + '] ' +
+        name + ':</span> ' + parsedMessage + '</p></div>';
 
         socket.emit('chat message', msg);
-
       } else {
-        msg = '<p class="output not-sent"> <span class="not-sent">[' + time + '] ' +
-        name + ':</span> ' + parsedMessage + '</p>';
+        msg = '<div class="talk-bubble tri-right left-in"><p class="output not-sent"> <span class="not-sent" style="color: ' + color + '">[' + time + '] ' +
+        name + ':</span> ' + parsedMessage + '</p></div>';
 
         output(msg);
       }
     }
   }
+
+  socket.on('chat message', function(msg){
+    output(msg);
+  });
 
   function output(msg) {
     var $outputContainer = $('#output'),
@@ -87,7 +86,6 @@ console.log(socket);
     $outputContainer.append(msg);
     height = $outputContainer[0].scrollHeight;
     $outputContainer.scrollTop(height);
-    setColor();
     $('#chat-input').empty();
   }
 
@@ -101,9 +99,4 @@ console.log(socket);
     return time;
   }
 
-  function setColor() {
-    // Set some color overrides for certain users
-    $('.name').css("color", "blue");
-    $('.mykl').css("color", "orange");
-  }
 }())
