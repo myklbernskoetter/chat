@@ -14,8 +14,6 @@
     $('.connect').css('display', 'inline');
     $('.light').toggleClass("off");
     $('#output').css('outline', '2px solid red');
-    console.log(socket);
-
   });
 
   $(".connect").on('click tap touch', function () {
@@ -66,7 +64,7 @@
 
         socket.emit('chat message', msg);
       } else {
-        msg = '<div class="talk-bubble tri-right left-in"><p class="output not-sent"> <span class="not-sent" style="color: ' + color + '">[' + time + '] ' +
+        msg = '<div class="speech"><p class="output not-sent"> <span class="not-sent" style="color: ' + color + '">[' + time + '] ' +
         name + ':</span> ' + parsedMessage + '</p></div>';
         output(msg);
       }
@@ -92,7 +90,6 @@
     minutes = date.getMinutes(),
     hour = date.getHours(),
     time = hour + ':' + minutes + ':' + seconds;
-
     return time;
   }
 
