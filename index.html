@@ -3,40 +3,49 @@
     <head>
         <title>Chatroom</title>
         <link rel="stylesheet" type="text/css" href="assets/styles.css" />
-
-
     </head>
     <script src="/socket.io/socket.io.js"></script>
     <body>
-      <h1>MChat</h1>
-        <div id="window" style="width: 100%; max-width: 100%;">
+      <div class="arrow">
+        <object type="image/svg+xml" data="./assets/images/arrows.svg"></object>
+      </div>
+      <div class="name">
+        <input type="text" id="name" placeholder="Name" />
+        <input type="text" id="color" placeholder="Add a color..." />
+        <input type="button" class="button" id="submit" name="Submit" value="Submit" />
+      </div>
+      <h1>Chat</h1>
+        <div id="window">
 
           <header>
-            <div class="name">
-              <input type="text" id="name" style="width: 200px; display:block;" placeholder="Name" />
-              <input type="text" id="color" style="width: 200px; display:block;" placeholder="Add your fav color..." />
-            </div>
+
             <div class="status">
               <button class="connection disconnect">Connected</button>
               <button class="connection connect">Disconnected</button>
               <span class="light on"></span>
             </div>
+            <div class="userCount">
+
+            </div>
           </header>
 
             <div id="output" style="width: 100%; max-width: 100%; height: 500px;">
-
+              <!-- Chat will go here. -->
             </div>
-        </div>
 
-        <div contentEditable="true" data-text="Type a message..." rows="1" type="text" id="chat-input" style="width: inherit;"></div>
-        <div class="emojiContainer">
-            <a href="#" title="frown"><img class="emoji" src="./assets/Images/frown.png" alt="" /></a>
-            <a href="#" title="smile"><img class="emoji" src="./assets/Images/smile.png" alt="" /></a>
+        <div class="inputContainer" style="width: inherit; position: relative;">
+          <div contentEditable="true" data-text="Type a message..." rows="1" type="text" id="chat-input" ></div>
+          <div class="emojiToggle"><a href="#" title="smile"><img src="./assets/Images/smile.png" alt="" /></a></div>
         </div>
+        <div class="emojiContainer">
+            <a href="#" title="frown"><img class="emoji" src="./assets/Images/frown.png" alt=":(" /></a>
+            <a href="#" title="smile"><img class="emoji" src="./assets/Images/smile.png" alt=":)" /></a>
+        </div>
+      </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <!-- Run Main JS -->
         <script src="assets/js/main.js"></script>
-
+        <audio id="switchAudio" src="./assets/sounds/switch-1.mp3"></audio>
     </body>
 </html>

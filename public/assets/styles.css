@@ -1,10 +1,9 @@
-body {
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
+body,
+html{
+  margin: 0;
   height: 100vh;
-  margin: 0 auto;
-  background: linear-gradient(to top, grey, lightgrey);
+  /*background: linear-gradient(to top, grey, lightgrey);*/
+  background: black;
 }
 
 h1,
@@ -17,7 +16,7 @@ div {
 }
 
 h1 {
-  margin: 0;
+  margin: 15px 0 0;
   text-align: center;
 }
 
@@ -29,6 +28,20 @@ header {
   width: 100%;
   padding: 15px 0 15px 0;
   overflow: hidden;
+}
+
+.arrow {
+  width: 50px;
+  margin: auto;
+}
+.arrow object {
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+}
+
+svg {
+  fill: #ffffff;
 }
 
 .connect {
@@ -58,12 +71,40 @@ header {
   box-shadow: 0 0 3px 3px red;
 }
 
-.emojiContainer {
-  margin-bottom: 15px;
+.inputContainer {
+  margin: 50px 0 20px;
+  padding: 10px 0 10px 10px;
   border-radius: 5px;
+  overflow: hidden;
   background: white;
 }
 
+.emojiToggle {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  cursor: pointer;
+}
+.emojiContainer {
+  display: none;
+  width: 50%;
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background: white;
+  z-index: 2;
+}
+
+.emojiActive {
+  display: block;
+  position: absolute;
+  right: 290px;
+  width: 150px;
+  height: 35px;
+  border: 2px solid grey;
+
+}
 .emoji {
   cursor: pointer;
 }
@@ -76,9 +117,15 @@ header {
   color: grey;
 }
 .name  {
-  float: left;
-  margin-left: 15px;
-  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background: black;
+  z-index: 1;
 }
 
 [contentEditable=true]:empty:not(:focus):before{
@@ -92,6 +139,7 @@ header {
 
 .output {
   display: inline-block;
+  overflow: hidden;
   margin: 15px 0 15px 15px;
   padding: 15px;
   min-width: 150px;
@@ -109,19 +157,49 @@ header {
   text-align: left;
 }
 
-
 #window {
-  margin-top: 100px;
-  height: 100vh;
-
+  max-width: 800px;
+  margin: auto;
 }
+
+#name,
+#color {
+  width: 250px;
+  display: block;
+  margin-bottom: 25px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid white;
+  text-align: center;
+  background: none;
+  color: white;
+  font-size: 40px;
+}
+
+.button {
+  width: 175px;
+  margin-top: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+  color: white;
+  background: #95bc2a;
+  box-shadow: 0px 2px 2px #000000;
+}
+
+#submit:hover {
+  background: linear-gradient(to bottom,#78b324 0,#699d20 100%);
+}
+
 #chat-input {
-  padding: 5px 0 20px 10px;
+  width: 85%;
+  font-size: 17px;
   border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background: white;
   overflow: hidden;
+}
+
+#chat-input:focus {
+  outline: none;
+  border: none;
 }
 
 #chat-input::before {
