@@ -2,7 +2,6 @@ body,
 html{
   margin: 0;
   height: 100vh;
-  /*background: linear-gradient(to top, grey, lightgrey);*/
   background: black;
 }
 
@@ -18,6 +17,7 @@ div {
 h1 {
   margin: 15px 0 0;
   text-align: center;
+  color: #fff;
 }
 
 img {
@@ -33,11 +33,11 @@ header {
 .arrow {
   width: 50px;
   margin: auto;
-}
-.arrow object {
-  width: 50px;
-  height: 50px;
-  z-index: 0;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  cursor: pointer;
 }
 
 svg {
@@ -98,8 +98,9 @@ svg {
 
 .emojiActive {
   display: block;
-  position: absolute;
-  right: 290px;
+  position: fixed;
+  right: 19%;
+  bottom: 23%;
   width: 150px;
   height: 35px;
   border: 2px solid grey;
@@ -129,7 +130,7 @@ svg {
 }
 
 [contentEditable=true]:empty:not(:focus):before{
-    content:attr(data-text)
+    content:attr(data-text);
 }
 
 .status {

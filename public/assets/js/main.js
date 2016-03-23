@@ -3,13 +3,13 @@
 (function(){
 
   var socket = io();
-  console.log(socket);
-  // var name = prompt('What is your name?'),
   var audio = document.getElementById("switchAudio");
+
+  $('#name').focus();
 
   $("#submit").on('click tap touch', function () {
     var name = $('#name').val();
-    if( name) {
+    if(name) {
       $('.name').animate({
         opacity: 0,
         height: "toggle",
@@ -18,6 +18,14 @@
     } else {
       alert('Add your name!');
     }
+  });
+
+  $(".arrow").on('click tap touch', function () {
+    $('.name').animate({
+      opacity: 1,
+      height: "toggle",
+      background: 'black'
+    });
   });
 
   //Putting in some indicators that the chat is either active or inactive.
@@ -60,6 +68,7 @@
     var emoji = $(this).attr('src');
     $('#chat-input').append('<img class="appendedEmoji" src="' + emoji + '"/>');
     $('.emojiContainer').toggleClass('emojiActive');
+    $('#chat-input').focus();
   });
 
   $(".emojiToggle").on('click tap touch', function (e) {
