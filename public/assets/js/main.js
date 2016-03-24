@@ -3,6 +3,7 @@
 (function(){
 
   var socket = io();
+  console.log(socket);
   var audio = document.getElementById("switchAudio");
 
   $('#name').focus();
