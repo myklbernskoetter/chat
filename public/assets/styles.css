@@ -39,9 +39,15 @@ header {
   font-size: 40px;
   cursor: pointer;
 }
-
-svg {
-  fill: #ffffff;
+.userList {
+  background: white;
+  /*height:25px;
+  width: 25px;*/
+}
+.users-label,
+.userCount {
+  padding-left: 15px;
+  color: white;
 }
 
 .connect {
@@ -134,8 +140,9 @@ svg {
 }
 
 .status {
-  float: right;
+  text-align: right;
   margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 .output {
@@ -206,6 +213,7 @@ svg {
 #chat-input::before {
   color: grey;
 }
+
 #output {
   align-self: center;
   overflow: scroll;

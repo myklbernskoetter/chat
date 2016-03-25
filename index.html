@@ -8,8 +8,8 @@
     <body>
 
       <div class="name">
-        <input type="text" id="name" placeholder="Name" />
-        <input type="text" id="color" placeholder="Add a color..." />
+        <input type="text" id="name" placeholder="Name" maxlength="30" />
+        <input type="text" id="color" placeholder="Add a color..." maxlength="15" />
         <input type="button" class="button" id="submit" name="Submit" value="Submit" />
       </div>
       <div class="arrow">
@@ -17,17 +17,22 @@
       </div>
       <h1>Chat</h1>
         <div id="window">
+          <div class="status">
+            <button class="connection disconnect">Connected</button>
+            <button class="connection connect">Disconnected</button>
+            <span class="light on"></span>
+          </div>
+          <div class="userList">
 
+          </div>
           <header>
-
-            <div class="status">
-              <button class="connection disconnect">Connected</button>
-              <button class="connection connect">Disconnected</button>
-              <span class="light on"></span>
+            <div class="users-label">
+              # Users online:
             </div>
             <div class="userCount">
 
             </div>
+
           </header>
 
             <div id="output" style="width: 100%; max-width: 100%; height: 500px;">
@@ -47,7 +52,10 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <!-- Run Main JS -->
-        <script src="assets/js/main.js"></script>
+        <script src="assets/js/submit.js" ></script>
+        <script src="assets/js/main.js" ></script>
+        <script src="assets/js/colors.js" ></script>
+        <script src="assets/js/emoji.js" ></script>
         <audio id="switchAudio" src="./assets/sounds/switch-1.mp3"></audio>
     </body>
 </html>

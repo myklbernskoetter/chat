@@ -4,7 +4,9 @@ var path = require('path');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var userCount = 0;
+var totalUsers = 0;
+var userNum = 0;
+var userList = [];
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -13,21 +15,40 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  // console.log('a user connected');
-  userCount++;
-  console.log(userCount);
+  totalUsers ++
+  io.emit('users', totalUsers);
 
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
-    // console.log('message: ' + msg);
+  });
+
+  socket.on('addUsers', function(user){
+    userList.push(user);
+    console.log(userList);
+    io.emit('list', userList);
+  });
+
+  socket.on('removeUsers', function(user){
+
+    for( i = 0; i < userList.length; i++) {
+      if( userList[i] === user ) {
+        userList.splice(i, 1);
+      }
+    }
+    // userList.push(user);
+    // console.log(userList);
+    io.emit('list', userList);
+  });
+
+  socket.on('removeUsers', function(user){
+
+    io.emit('list', userList);
   });
 
   socket.on('disconnect', function(){
-    // console.log('user disconnected');
-    userCount--;
-    console.log(userCount)
+    totalUsers --;
+    io.emit('users', totalUsers);
   });
-
 });
 
 http.listen(3000, function(){

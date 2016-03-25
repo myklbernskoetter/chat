@@ -3,79 +3,62 @@
 (function(){
 
   var socket = io();
-  console.log(socket);
   var audio = document.getElementById("switchAudio");
-
-  $('#name').focus();
-
-  $("#submit").on('click tap touch', function () {
-    var name = $('#name').val();
-    if(name) {
-      $('.name').animate({
-        opacity: 0,
-        height: "toggle",
-        background: 'none'
-      });
-    } else {
-      alert('Add your name!');
-    }
-  });
-
-  $(".arrow").on('click tap touch', function () {
-    $('.name').animate({
-      opacity: 1,
-      height: "toggle",
-      background: 'black'
-    });
-  });
 
   //Putting in some indicators that the chat is either active or inactive.
   $(".disconnect").on('click tap touch', function () {
+    var user = $('#name').val();
     switchAudio.play();
+    socket.emit('removeUsers', user);
     socket.close();
     $(this).css('display', 'none');
     $('.connect').css('display', 'inline');
     $('.light').toggleClass("off");
     $('#output').css('outline', '2px solid red');
+    $('.userCount').css('visibility', 'hidden');
+    $('.userList').empty();
   });
 
   $(".connect").on('click tap touch', function () {
+    var user = $('#name').val();
     switchAudio.play();
     socket.connect();
     $(this).css('display', 'none');
+    socket.emit('addUsers', user);
     $('.disconnect').css('display', 'inline');
     $('.light').toggleClass("off");
     $('#output').css('outline', 'none');
+    $('.userCount').css('visibility', 'visible');
   });
 
-  // The User gets to choose their own color and it shows up in several places- the header, the chat banner section, and their messages.
-  $('#color').bind('input', function () {
-    var color = $(this).val();
-    $('header').css('background', color);
-    $('#color').css('color', color);
+// Keeping track of our total users Online
+  socket.on('users', function(totalUsers) {
+    $('.userCount').empty();
+    $('.userCount').append(totalUsers);
   });
 
-  // We Only need to run the function if we're focused
-  // on the chat-input and push enter to submit it.
+// We'll send the user's chosen name to the server
+  $("#submit").on('click tap touch', function () {
+    var user = $('#name').val();
+    socket.emit('addUsers', user);
+  });
+
+// Once we send our name- the server will return the full array of online users
+// back to us for us to output.
+  socket.on('list', function(userList) {
+    $('.userList').empty();
+    for (var i = 0; i< userList.length; i++) {
+      $('.userList').append('<div>' + userList[i] + '</div>');
+    }
+  });
+
+
+  // Listening for an enter key press before running the submit message function
   $(document).keypress(function (e) {
     if( e.which === 13 ) {
       e.preventDefault();
       submitMessage();
     }
-  });
-
-  //  Currently, clicking an emoji in the emoji container will  add emojis to the input line as they're writing their messages
-  $(".emoji").on('click tap touch', function (e) {
-    var emoji = $(this).attr('src');
-    $('#chat-input').append('<img class="appendedEmoji" src="' + emoji + '"/>');
-    $('.emojiContainer').toggleClass('emojiActive');
-    $('#chat-input').focus();
-  });
-
-  $(".emojiToggle").on('click tap touch', function (e) {
-    var color = $('#color').val();
-    $('.emojiContainer').toggleClass('emojiActive');
-    $('.emojiContainer').css('border', '3px solid color');
   });
 
   // Output 1 of 2 ways.  If connnected- run the submitMessage function which then emits through the socketio server.  Otherwise it just posts to the local user's window.
@@ -124,4 +107,4 @@
     return time;
   }
 
-}())
+})()
