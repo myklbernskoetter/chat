@@ -9,7 +9,6 @@
   $(".disconnect").on('click tap touch', function () {
     var user = $('#name').val();
     switchAudio.play();
-    socket.emit('removeUsers', user);
     socket.close();
     $(this).css('display', 'none');
     $('.connect').css('display', 'inline');
@@ -24,27 +23,20 @@
     switchAudio.play();
     socket.connect();
     $(this).css('display', 'none');
-    socket.emit('addUsers', user);
     $('.disconnect').css('display', 'inline');
     $('.light').toggleClass("off");
     $('#output').css('outline', 'none');
     $('.userCount').css('visibility', 'visible');
   });
 
-// Keeping track of our total users Online
+  // Keeping track of our total users Online
   socket.on('users', function(totalUsers) {
     $('.userCount').empty();
     $('.userCount').append(totalUsers);
   });
 
-// We'll send the user's chosen name to the server
-  $("#submit").on('click tap touch', function () {
-    var user = $('#name').val();
-    socket.emit('addUsers', user);
-  });
-
-// Once we send our name- the server will return the full array of online users
-// back to us for us to output.
+  // Once we send our name- the server will return the full array of online users
+  // back to us for us to output.
   socket.on('list', function(userList) {
     $('.userList').empty();
     for (var i = 0; i< userList.length; i++) {

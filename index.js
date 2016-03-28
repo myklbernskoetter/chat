@@ -22,29 +22,6 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 
-  socket.on('addUsers', function(user){
-    userList.push(user);
-    console.log(userList);
-    io.emit('list', userList);
-  });
-
-  socket.on('removeUsers', function(user){
-
-    for( i = 0; i < userList.length; i++) {
-      if( userList[i] === user ) {
-        userList.splice(i, 1);
-      }
-    }
-    // userList.push(user);
-    // console.log(userList);
-    io.emit('list', userList);
-  });
-
-  socket.on('removeUsers', function(user){
-
-    io.emit('list', userList);
-  });
-
   socket.on('disconnect', function(){
     totalUsers --;
     io.emit('users', totalUsers);
