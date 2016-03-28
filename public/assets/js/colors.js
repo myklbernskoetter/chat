@@ -7,4 +7,4 @@
     $('header').css('background', color);
     $('#color').css('color', color);
   });
-})()
+})();

@@ -15,4 +15,4 @@
     $('.emojiContainer').css('border', '3px solid color');
   });
 
-})()
+})();
